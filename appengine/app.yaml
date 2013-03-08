@@ -5,9 +5,16 @@ api_version: 1
 threadsafe: true
 
 handlers:
+
+# Endpoints handler
+- url: /_ah/spi/.*
+  script: sensors.APPLICATION
+
 - url: /.*
   script: remotecontroller.app
 
-# Endpoints handler
-- url: /_ah/api/.*
-  script: sensors.APPLICATION
+
+libraries:
+- name: pycrypto
+  version: "2.6"
+
