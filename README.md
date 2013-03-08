@@ -13,6 +13,14 @@ To achieve this, we need to build an a service and an API which should:
 
 The API we design should be accessible for both web and native mobile applications.
 
+Before we start
+---------------
+
+This project assumes familiarity with Google AppEngine and it's main concepts. If you never used AppEngine, feel free to check these links first:
+
+* [AppEngine Getting Started](https://developers.google.com/appengine/docs/python/gettingstartedpython27/introduction) - really nice and hands-on introduction to AppEngine
+* [AppEngine documentation](https://developers.google.com/appengine/docs) - for anything that doesn't fit into Getting Started.
+
 
 API Design
 -----------
@@ -169,6 +177,37 @@ Note, that we are using newly defined type `Sensor` here which is an AppEngine d
 </pre>
 
 This is a similar to ProtoRPC concept - we define a class and AppEngine handles storing it in the database. You can read more about it in AppEngine documentation site.
+
+Deploying and Testing
+---------------------
+
+We finally have a minimally functional API (minimally indeed - with only one method, but hey - we just getting started). Now it's the time to deploy it to dev instance of AppEngine and see if it actually works. We will start with writing a YAML configuration for AppEngine:
+
+<pre class="prettyprint">
+    application: sensors-api-app
+    version: 1
+    runtime: python27
+    api_version: 1
+    threadsafe: true
+
+    handlers:
+
+    # API endpoint handler - this is where our API will live
+    - url: /_ah/spi/.*
+      script: sensors.APPLICATION
+
+    # ignore this for now - there must be something that
+    # handles "all other" requests
+    - url: /.*
+      script: remotecontroller.app
+
+    libraries:
+    - name: pycrypto
+      version: "2.6"
+</pre>
+
+We will not be covering this here - this is really well covered in a [dedicated section](https://developers.google.com/appengine/docs/python/config/appconfig) of a great [AppEngine documentation](https://developers.google.com/appengine/docs).
+
 
 ### Time to play! ###
 
