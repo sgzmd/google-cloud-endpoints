@@ -215,4 +215,4 @@ So now we have an API, capable of receiving calls and storing data in the databa
 
     $ dev_appserver.py --debug .
 
-Now we can use Google API explorer to see how our API works. Navigate to [API explorer page](https://developers.google.com/apis-explorer/?base=http://localhost:8080/_ah/api_)
+Now we can use Google API explorer to see how our API works. Navigate to [API explorer page](https://developers.google.com/apis-explorer/?base=http://localhost:8080/_ah/api) (you may need to change the port number if you are running your app on a port different from 8080).

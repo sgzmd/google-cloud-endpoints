@@ -10,9 +10,6 @@ handlers:
 - url: /_ah/spi/.*
   script: sensors.APPLICATION
 
-- url: /.*
-  script: remotecontroller.app
-
 libraries:
 - name: pycrypto
   version: "2.6"
