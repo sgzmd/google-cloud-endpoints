@@ -159,7 +159,9 @@ class SensorsApi(remote.Service):
     for sensor in Sensor.all():
       sm = SensorMessage(sensor_id=sensor.sensor_id,
                          network_id=sensor.network_id,
-                         room=EnumHelpers.RoomFromString(sensor.room))
+                         room=EnumHelpers.RoomFromString(sensor.room),
+                         sensor_type=EnumHelpers.TypeFromString(sensor.sensor_type),
+                         active=sensor.active)
       logging.info("Creating SensorMessage: %s", str(sm))
       sensor_list.append(sm)
 
@@ -233,6 +235,9 @@ class SensorsApi(remote.Service):
     response.status = SensorsResponseMessage.Status.STATUS_OK
     errors = []
 
+    logging.info("delete()")
+    logging.info(request)
+
     for s in request.sensors:
       sensor = Sensor.get_by_key_name(str(s.sensor_id))
       if not sensor:
@@ -241,7 +246,7 @@ class SensorsApi(remote.Service):
         response.status = SensorsResponseMessage.Status.STATUS_FAILED
         errors.append(err)
       else:
-        del sensor
+        sensor.delete()
 
     response.error = errors
     return response

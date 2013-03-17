@@ -32,7 +32,7 @@ There will be four main methods defined on `sensors` collection: `LIST`, `INSERT
 * `LIST` will return full list of sensors installed in a given household, along with their activity status. This is useful if we want to see all information about every sensor on one page.
 * `INSERT` will allow us to install another sensor in the household.
 * `UPDATE` will allow to change the information associated with a given sensor, such as `active`.
-* `DELETE` will be used when we de-install certain sensor.
+* `DELETE` will be used when we de-install certain sensor (note: this might be broken right now but will inevitably be fixed).
 
 
 API Implementation
