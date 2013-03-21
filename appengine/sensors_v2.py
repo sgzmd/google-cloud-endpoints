@@ -47,6 +47,9 @@ class SensorsApi(remote.Service):
                   path='sensormodel/{id}',
                   http_method='GET',
                   name='sensor.get')
+  """
+  Returns a sensor with a specified ID.
+  """
   def get(self, sensor_model):
     if not sensor_model.from_datastore:
       raise endpoints.NotFoundException('MyModel not found.')
@@ -66,6 +69,9 @@ class SensorsApi(remote.Service):
   # the request that defines the query and the schema of the messages contained
   # in the "items" list. We'll see how to use these in further examples.
   @SensorModel.query_method(path='sensors', name='sensormodel.list')
+  """
+  Lists all sensors in the datastore.
+  """
   def list(self, query):
     # We have no filters that we need to apply, so we just return the query
     # object as is. As we'll see in further examples, we can augment the query
