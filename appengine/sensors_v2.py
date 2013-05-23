@@ -4,6 +4,14 @@ from protorpc import remote
 
 from endpoints_proto_datastore.ndb import EndpointsModel
 
+"""
+To generate client, run something along the lines:
+
+/Applications/GoogleAppEngineLauncher.app/Contents/Resources/\
+GoogleAppEngine-default.bundle/Contents/Resources/google_appengine/\
+endpointscfg.py get_client_lib java -o genclient -f rest sensors.SensorsApi
+"""
+
 # Represents a single sensor in application's database,
 # inheriting it from EndpointsModel.
 class SensorModel(EndpointsModel):
@@ -29,7 +37,7 @@ class SensorsApi(remote.Service):
   # the put completes.
   @SensorModel.method(path='sensormodel',
                       http_method='POST',
-                      name='sensor.put')
+                      name='put')
   def insert_or_update(self, sensor_model):
     """
     Creates new SensorModel and saves it in datastore OR overwrites
@@ -46,13 +54,30 @@ class SensorsApi(remote.Service):
   @SensorModel.method(request_fields=('id',),
                   path='sensormodel/{id}',
                   http_method='GET',
-                  name='sensor.get')
+                  name='get')
   def get(self, sensor_model):
     """
     Returns a sensor with a specified ID.
     """
     if not sensor_model.from_datastore:
-      raise endpoints.NotFoundException('MyModel not found.')
+      raise endpoints.NotFoundException('Sensor not found.')
+    return sensor_model
+
+
+
+  @SensorModel.method(request_fields=('id',),
+                      path='sensormodel/delete/{id}',
+                      http_method='POST',
+                      name='delete')
+  def delete(self, sensor_model):
+    """
+    Deletes a sensor with a specified ID.
+    """
+
+    if not sensor_model.from_datastore:
+      raise endpoints.NotFoundException('Sensor not found.')
+
+    sensor_model.key.delete()
     return sensor_model
 
   # As SensorModel.method replaces a ProtoRPC request message to an entity of our

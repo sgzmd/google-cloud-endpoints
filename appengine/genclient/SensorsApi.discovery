@@ -1,0 +1,198 @@
+{
+ "kind": "discovery#restDescription",
+ "etag": "\"_eRzJ5rb6y2Sm1GT1st-3xOUuXg/uOsR_DG7PPy0LdHrgwgg2xuI_10\"",
+ "discoveryVersion": "v1",
+ "id": "sensors:v1",
+ "name": "sensors",
+ "version": "v1",
+ "description": "Sensors API",
+ "ownerDomain": "google.com",
+ "ownerName": "Google",
+ "icons": {
+  "x16": "http://www.google.com/images/icons/product/search-16.gif",
+  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+ },
+ "protocol": "rest",
+ "baseUrl": "https://None/_ah/api/sensors/v1/",
+ "basePath": "/_ah/api/sensors/v1/",
+ "rootUrl": "https://None/_ah/api/",
+ "servicePath": "sensors/v1/",
+ "batchPath": "batch",
+ "parameters": {
+  "alt": {
+   "type": "string",
+   "description": "Data format for the response.",
+   "default": "json",
+   "enum": [
+    "json"
+   ],
+   "enumDescriptions": [
+    "Responses with Content-Type of application/json"
+   ],
+   "location": "query"
+  },
+  "fields": {
+   "type": "string",
+   "description": "Selector specifying which fields to include in a partial response.",
+   "location": "query"
+  },
+  "key": {
+   "type": "string",
+   "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+   "location": "query"
+  },
+  "oauth_token": {
+   "type": "string",
+   "description": "OAuth 2.0 token for the current user.",
+   "location": "query"
+  },
+  "prettyPrint": {
+   "type": "boolean",
+   "description": "Returns response with indentations and line breaks.",
+   "default": "true",
+   "location": "query"
+  },
+  "quotaUser": {
+   "type": "string",
+   "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+   "location": "query"
+  },
+  "userIp": {
+   "type": "string",
+   "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+   "location": "query"
+  }
+ },
+ "auth": {
+  "oauth2": {
+   "scopes": {
+    "https://www.googleapis.com/auth/userinfo.email": {
+     "description": "View your email address"
+    }
+   }
+  }
+ },
+ "schemas": {
+  "SensorsSensorMessage": {
+   "id": "SensorsSensorMessage",
+   "type": "object",
+   "description": "Represents a single Sensor entity. Inherits ProtoRPC's Message and will be used for representing messages between the API and the client. Google Cloud Endpoints framework will handle behind-the-scenes conversion of objects of this type to and from on-the-wire format (Protocol Buffers, JSON, etc).",
+   "properties": {
+    "active": {
+     "type": "boolean"
+    },
+    "network_id": {
+     "type": "string"
+    },
+    "room": {
+     "type": "string"
+    },
+    "sensor_id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "sensor_type": {
+     "type": "string"
+    }
+   }
+  },
+  "SensorsSensorsRequestMessage": {
+   "id": "SensorsSensorsRequestMessage",
+   "type": "object",
+   "properties": {
+    "sensors": {
+     "type": "array",
+     "description": "Represents a single Sensor entity. Inherits ProtoRPC's Message and will be used for representing messages between the API and the client. Google Cloud Endpoints framework will handle behind-the-scenes conversion of objects of this type to and from on-the-wire format (Protocol Buffers, JSON, etc).",
+     "items": {
+      "$ref": "SensorsSensorMessage"
+     }
+    }
+   }
+  },
+  "SensorsSensorsResponseMessage": {
+   "id": "SensorsSensorsResponseMessage",
+   "type": "object",
+   "properties": {
+    "error": {
+     "type": "array",
+     "items": {
+      "type": "string"
+     }
+    },
+    "sensors": {
+     "type": "array",
+     "description": "Represents a single Sensor entity. Inherits ProtoRPC's Message and will be used for representing messages between the API and the client. Google Cloud Endpoints framework will handle behind-the-scenes conversion of objects of this type to and from on-the-wire format (Protocol Buffers, JSON, etc).",
+     "items": {
+      "$ref": "SensorsSensorMessage"
+     }
+    },
+    "status": {
+     "type": "string"
+    }
+   }
+  }
+ },
+ "resources": {
+  "sensors": {
+   "methods": {
+    "delete": {
+     "id": "sensors.sensors.delete",
+     "path": "sensors-delete",
+     "httpMethod": "POST",
+     "description": "Deletes a sensor with a specified sensor_id. Args: request: instance of SensorsRequestMessage, list of sensors to be deleted. Returns: Instance of SensorsResponseMessage.",
+     "request": {
+      "$ref": "SensorsSensorsRequestMessage"
+     },
+     "response": {
+      "$ref": "SensorsSensorsResponseMessage"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    },
+    "insert": {
+     "id": "sensors.sensors.insert",
+     "path": "sensors",
+     "httpMethod": "POST",
+     "description": "Exposes an API endpoint to install a sensor in household. Args: request: An instance of ScoreRequestMessage parsed from the API request. Returns: An instance of ScoreResponseMessage containing the score inserted, the time the score was inserted and the ID of the score.",
+     "request": {
+      "$ref": "SensorsSensorsRequestMessage"
+     },
+     "response": {
+      "$ref": "SensorsSensorsResponseMessage"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    },
+    "list": {
+     "id": "sensors.sensors.list",
+     "path": "sensors",
+     "httpMethod": "GET",
+     "description": "Returns a collection of all sensors installed in the household. Args: request: an instance of ListSensorsRequest, empty object. Returns: Collection of SensorMessage objects.",
+     "response": {
+      "$ref": "SensorsSensorsResponseMessage"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    },
+    "update": {
+     "id": "sensors.sensors.update",
+     "path": "sensors",
+     "httpMethod": "PUT",
+     "description": "Updates sensor information in the datastore. Args: request: instance of SensorMessage, sensor to be updated, should only include fields to be updated. Returns: Instance of SensorMessage containing updated information.",
+     "request": {
+      "$ref": "SensorsSensorMessage"
+     },
+     "response": {
+      "$ref": "SensorsSensorsResponseMessage"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    }
+   }
+  }
+ }
+}
