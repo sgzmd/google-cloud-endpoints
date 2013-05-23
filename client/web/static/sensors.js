@@ -2,7 +2,7 @@ var sensorsApi = null;
 
 function init() {
   var ROOT = 'http://localhost:8080/_ah/api';
-  gapi.client.load('sensors', 'v1', function() {
+  gapi.client.load('sensors', 'v2', function() {
     listSensors();
   }, ROOT);
 }

@@ -8,7 +8,7 @@ handlers:
 
 # Endpoints handler
 - url: /_ah/spi/.*
-  script: sensors_v2.APPLICATION
+  script: sensors_api.APPLICATION
 
 libraries:
 - name: pycrypto
